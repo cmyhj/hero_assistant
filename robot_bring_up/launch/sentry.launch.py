@@ -13,7 +13,7 @@ from launch.actions import TimerAction
 def generate_launch_description():
     if_rviz = True
     if_sim = False
-    if_map = False //map1 map3
+    if_map = False #map1 map3
 
     point_lio_path = get_package_share_directory("point_lio")
     robot_bringup_path = get_package_share_directory("robot_bring_up")
@@ -65,7 +65,7 @@ def generate_launch_description():
 
     point_lio_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [point_lio_path, "/launch", "/pointlio.launch.py"]
+            [point_lio_path, "/launch", "/point_lio.launch.py"]
         ),
         launch_arguments={
             "params_file": param_yaml_path,
@@ -114,14 +114,14 @@ def generate_launch_description():
         package='tf2_ros',
         executable='static_transform_publisher',
         name='livox2body_broadcaster',
-        arguments=['0', '0', '0', '0', '0', '0', '1', 'base_link', 'livox_frame']
+        arguments=['0', '0', '0', '0.92388', '-0.38268', '0', '0', 'base_link', 'livox']
     )
 
     odom_to_base_link = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
         name='odom_to_base_link_broadcaster',
-        arguments=['0', '0', '0', '0', '0', '0', '1', 'odom', 'base_link']
+        arguments=['0', '0', '0', '0', '0', '0', '1', 'map', 'odom']
     )
 
     list = [

@@ -109,12 +109,46 @@ RobotSerial::RobotSerial() : Node("robot_serial_node")
     sentrySerial.spin(true);
 }
 
-void RobotSerial::timer_callback()
-{
+void RobotSerial::timer_callback() {
+    static uint8_t SOF = 0x00;
+
+
+    //static int cnt = 0;
+    float x = 1;
+    float y = 1;
+    float z = 0;
+
+    //Velocity velocity{};
+
+    //if (cnt == 0) {
+        Velocity velocity{
+            (float)(x),
+            (float)(y),
+            (float)(z),
+        };
+       // cnt++;
+    //}
+    /*else if (cnt == 1) {
+        Velocity velocity{
+            (float)(-x),
+            (float)(-y),
+            (float)(z),
+        };
+        cnt=0;
+    }*/
+
+    SOF++;
+    if (sentrySerial.write(0x0501, SOF, velocity)==true) {
+        RCLCPP_INFO(get_logger(), "SUCCESS");
+    }
+    else {
+        RCLCPP_INFO(get_logger(), "FAILURE");
+    }
+    /*
     dog_cnt_++;
     if (dog_cnt_ > dog_threshold_)
     {
         RCLCPP_ERROR(this->get_logger(), "长时间未收到C板数据，重启串口");
         throw;
-    }
+    }*/
 }

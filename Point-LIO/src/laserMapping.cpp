@@ -83,6 +83,7 @@ LaserMappingNode::LaserMappingNode(const rclcpp::NodeOptions &options) : Node("l
     P_init.block<6, 6>(15, 15) = MD(6, 6)::Identity() * 0.001;
     P_init.block<6, 6>(6, 6) = MD(6, 6)::Identity() * 0.0001;
     kf_input.change_P(P_init); // 更新卡尔曼滤波器的协方差矩阵
+   
     
     Eigen::Matrix<double, 30, 30> P_init_output = MD(30, 30)::Identity() * 0.01;
     P_init_output.block<3, 3>(21, 21) = MD(3, 3)::Identity() * 0.0001;
@@ -198,6 +199,7 @@ LaserMappingNode::~LaserMappingNode()
         RCLCPP_INFO(this->get_logger(), "current scan saved to /PCD/%s", all_points_dir.c_str());
         pcd_writer.writeBinary(all_points_dir, *pcl_wait_save);
     }
+    else RCLCPP_INFO(this->get_logger(), "Maybe there is no pcl");
 }
 
 /**

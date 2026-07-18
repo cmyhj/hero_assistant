@@ -1,16 +1,16 @@
 
 map_server:
   ros__parameters:
-    yaml_filename: "/home/tc/Desktop/hero_assistant_test/src/hero_assistant/robot_bring_up/maps/RMUC.yaml" #map3 重命名 checklist
+    yaml_filename: "/home/ckyf/hero_assistant/src/hero_assistant/robot_bring_up/maps/508.yaml" #map3 重命名 checklist
 
 ## PCD转二维栅格地图 map3
 pcd2pgm_node:
   ros__parameters: # map2 修改路径和名称
-    pcd_path: "/home/tc/Desktop/hero_assistant_test/src/hero_assistant/Point-LIO/PCD" # 点云路径
-    pcd_name: "2026_05_13_13_43_36_1.pcd"
-    map_path: "/home/tc/Desktop/hero_assistant_test/src/hero_assistant/robot_bring_up/maps"
-    map_name: "3502.png"
-    yaml_name: "3502.yaml"
+    pcd_path: "/home/ckyf/hero_assistant/src/hero_assistant/Point-LIO/PCD" # 点云路径
+    pcd_name: "2026_07_18_21_11_19_2.pcd"
+    map_path: "/home/ckyf/hero_assistant/src/hero_assistant/robot_bring_up/maps"
+    map_name: "508.png"
+    yaml_name: "508.yaml"
 
     method: "point" # normal、height或者point，代表不同的转换方法
     thre_x_min: -50.0 # 点云范围
@@ -79,9 +79,11 @@ bt_navigator:
 laser_mapping:
   ros__parameters:
     common:
-      lid_topic: "/livox/lidar_192_168_2_104"
+      #lid_topic: "/livox/lidar_192_168_2_104"
+      lid_topic: "/livox/lidar"
       # imu_topic:  "/imu/data"  #from imu_complementary_filter
-      imu_topic: "/livox/imu_192_168_2_104"
+      #imu_topic: "/livox/imu_192_168_2_104"
+      imu_topic: "/livox/imu"
       odom_topic: "/Odometry"
       con_frame: false # true: if you need to combine several LiDAR frames into one
       con_frame_num: 2 # the number of frames combined
@@ -134,10 +136,10 @@ laser_mapping:
       scan_bodyframe_pub_en: true
 
     pcd_save:
-      use_pcd_map_: false #map1前false ,map3 true
-      prior_PCD_map_path_red: "/home/tc/Desktop/hero_assistant_test/src/hero_assistant/Point-LIO/PCD/2025_07_27_17_07_57_8.pcd" #map3 重命名和路径 checklist
-      prior_PCD_map_path_blue: "/home/tc/Desktop/hero_assistant_test/src/hero_assistant/Point-LIO/PCD/2025_07_27_17_07_57_1.pcd" #map3 重命名和路径 checklist
-      pcd_save_en: true #map1前true  ,map3 false
+      use_pcd_map_: true #map1前false ,map3 true
+      prior_PCD_map_path_red: "/home/ckyf/hero_assistant/src/hero_assistant/Point-LIO/PCD/2026_07_18_21_15_14_2.pcd" #map3 重命名和路径 checklist
+      prior_PCD_map_path_blue: "/home/ckyf/hero_assistant/src/hero_assistant/Point-LIO/PCD/2026_07_18_21_15_14_2.pcd" #map3 重命名和路径 checklist
+      pcd_save_en: false #map1前true  ,map3 false
       interval: 900
     #RMUC
     init_pos:
@@ -152,7 +154,7 @@ laser_mapping:
     gcl:
       task: "A"
       angle_threshold: 0.785 # 法向量与地面夹角的角度阈值(绝对值、弧度制)
-    point_frame_id: "livox_frame"
+    point_frame_id: "livox"
     runtime_pos_log_enable: false
 
 merge_pcd_node:
